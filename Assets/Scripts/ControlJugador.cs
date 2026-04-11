@@ -8,32 +8,55 @@ public class ControlJugador : MonoBehaviour
     public int fuerzaSalto;
 
     private Rigidbody2D fisica;
+    private SpriteRenderer sprite;
+    private Animator animacion;
 
     private void Start() 
     {
         fisica = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        animacion = GetComponent<Animator>();
     }
 
     private void FixedUpdate() 
     {
         float entradaX = Input.GetAxis("Horizontal");
         fisica.linearVelocity = new Vector2(entradaX * velocidad, fisica.linearVelocity.y);
-
-        // Lógica para girar el sprite
-        if (entradaX > 0) 
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        } else if (entradaX < 0) {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
     }
 
     private void Update() 
     {
+        // Logica de salto
         if (Input.GetKeyDown(KeyCode.Space) && TocarSuelo()) 
         {
             fisica.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
         }
+
+        // Si va hacia la derecha flipX = true
+        if (fisica.linearVelocity.x > 0.1f) 
+        {
+            sprite.flipX = false;
+        }
+        // Si va hacia la izquierda flipX = false y volteo
+        else if (fisica.linearVelocity.x < -0.1f) 
+        {
+            sprite.flipX = true;
+        }
+        
+        animarJugador();
+    }
+
+    private void animarJugador()
+    {
+        // Jugador saltando
+        if (!TocarSuelo()) 
+        animacion.Play("jugadorSaltando");
+        //Jugador corriendo
+        else if ((fisica.linearVelocity.x > 0.1f || fisica.linearVelocity.x < -0.1f) && fisica.linearVelocity.y == 0) 
+        animacion.Play("jugadorCorriendo");
+        // Jugador parado
+        else if ((fisica.linearVelocity.x < 0.1f || fisica.linearVelocity.x > -0.1f) && fisica.linearVelocity.y == 0) 
+        animacion.Play("jugadorParado");
     }
 
     private bool TocarSuelo() 
