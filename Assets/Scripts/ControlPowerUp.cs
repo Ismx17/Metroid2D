@@ -1,0 +1,15 @@
+using UnityEngine;
+
+public class ControlPowerUp : MonoBehaviour
+{
+    public int cantidad;
+    
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if(collision.CompareTag("Player")) 
+        {
+            collision.gameObject.GetComponent<ControlJugador>().IncrementarPuntos(cantidad);
+            Destroy(gameObject);
+        }
+    }
+}

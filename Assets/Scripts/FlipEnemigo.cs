@@ -1,0 +1,22 @@
+using UnityEngine;
+
+public class FlipEnemigo : MonoBehaviour
+{
+    private SpriteRenderer sprite;
+    private float posicionXAnterior;
+
+    private void Start() 
+    {
+        posicionXAnterior = transform.parent.position.x;
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update() 
+    {
+        // Moviendo hacia la derecha
+        sprite.flipX = posicionXAnterior < transform.position.x;
+
+        // Actualizar posicion anterior 
+        posicionXAnterior = transform.position.x;
+    }
+ }

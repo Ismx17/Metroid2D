@@ -6,16 +6,31 @@ public class ControlJugador : MonoBehaviour
 {
     public int velocidad;
     public int fuerzaSalto;
+    public int numVidas;
+    public int tiempoNivel;
+    public Canvas canvas; 
+
+    public int puntuacion;
 
     private Rigidbody2D fisica;
     private SpriteRenderer sprite;
     private Animator animacion;
+    private bool vulnerable;
+    private float tiempoInicio;
+    private int tiempoEmpleado;
+    private ControlHUD hud;
+
+    private ControlDatosJuego datosJuego;
 
     private void Start() 
     {
+        tiempoInicio = Time.time;
+        vulnerable = true;
         fisica = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animacion = GetComponent<Animator>();
+        hud = canvas.GetComponent<ControlHUD>();
+        datosJuego = GameObject.Find("DatosJuego").GetComponent<ControlDatosJuego>();
     }
 
     private void FixedUpdate() 
@@ -44,6 +59,31 @@ public class ControlJugador : MonoBehaviour
         }
         
         animarJugador();
+
+        hud.setPowerUpsTxt(GameObject.FindGameObjectsWithTag("PowerUp").Length);
+        if (GameObject.FindGameObjectsWithTag("PowerUp").Length == 0) 
+        {
+            GanarJuego();
+        }
+
+        // Actualiza tiempo empleado
+        tiempoEmpleado = (int)(Time.time - tiempoInicio);
+        hud.setTiempoTxt(tiempoNivel - tiempoEmpleado);
+
+        // Comprueba si hemos consumido el tiempo del nivel
+        if(tiempoEmpleado >= tiempoNivel) 
+        {
+            Debug.Log("Tiempo Agotado");
+            FinJuego();
+        }
+    }
+
+    private void GanarJuego() 
+    {
+        puntuacion = (numVidas * 100) + (tiempoNivel - tiempoEmpleado);
+        datosJuego.Puntuacion = puntuacion;
+        datosJuego.Ganado = true;
+        SceneManager.LoadScene("FinNivel");
     }
 
     private void animarJugador()
@@ -67,6 +107,33 @@ public class ControlJugador : MonoBehaviour
 
     public void FinJuego()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        datosJuego.Ganado = false;
+        SceneManager.LoadScene("FinNivel");
+    }
+
+    public void IncrementarPuntos(int cantidad) 
+    {
+        puntuacion += cantidad;
+    }
+
+    public void QuitarVida()
+    {
+        if(vulnerable) 
+        {
+            numVidas--;
+            hud.setVidasTxt(numVidas);
+            if(numVidas == 0) 
+            {
+             FinJuego();
+            }
+            Invoke("HacerVulnerable", 1f);
+            sprite.color = Color.red;
+        }
+    }
+
+    private void HacerVulnerable()
+    {
+        vulnerable = true;
+        sprite.color = Color.white;
     }
 }

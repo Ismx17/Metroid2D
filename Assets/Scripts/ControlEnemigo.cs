@@ -32,12 +32,12 @@ public class ControlEnemigo : MonoBehaviour
         if (transform.position == posicionInicio) moviendoAFin = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
         // Si el objeto que ha colisionado con el enemigo es el jugador
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<ControlJugador>().FinJuego();
+            collision.gameObject.GetComponent<ControlJugador>().QuitarVida();
         }
     }
 }
