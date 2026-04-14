@@ -22,6 +22,17 @@ public class ControlJugador : MonoBehaviour
 
     private ControlDatosJuego datosJuego;
 
+    public AudioClip saltoSfx;
+    public AudioClip vidaSfx;
+
+    private AudioSource audiosource;
+
+    private void Awake() 
+    {
+        audiosource = GetComponent<AudioSource>();
+    }
+
+
     private void Start() 
     {
         tiempoInicio = Time.time;
@@ -45,6 +56,7 @@ public class ControlJugador : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && TocarSuelo()) 
         {
             fisica.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+            audiosource.PlayOneShot(saltoSfx);
         }
 
         // Si va hacia la derecha flipX = true
@@ -120,6 +132,7 @@ public class ControlJugador : MonoBehaviour
     {
         if(vulnerable) 
         {
+            audiosource.PlayOneShot(vidaSfx);
             numVidas--;
             hud.setVidasTxt(numVidas);
             if(numVidas == 0) 

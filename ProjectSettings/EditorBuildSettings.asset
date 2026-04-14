@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: af8742d7809c6f6449be587daa95b806
   - enabled: 1
+    path: Assets/Scenes/Creditos.unity
+    guid: 23d4c571c2a75984f9470d9087521a38
+  - enabled: 1
     path: Assets/Scenes/Nivel1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/FinNivel.unity
     guid: a43fc80cfae825b47837123d416b500c
-  - enabled: 1
-    path: Assets/Scenes/Creditos.unity
-    guid: 23d4c571c2a75984f9470d9087521a38
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

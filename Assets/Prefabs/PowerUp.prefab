@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlPowerUp
   cantidad: 2
+  recolectarSfx: {fileID: 8300000, guid: 39fe0e3d3236b2f47a6853bd7cda6594, type: 3}
 --- !u!58 &8223105481532758235
 CircleCollider2D:
   m_ObjectHideFlags: 0
