@@ -34,9 +34,3 @@ A través del desarrollo de este proyecto, he aplicado y consolidado los siguien
 - `Assets/Prefabs`: Objetos reutilizables (Player, Enemigos) que facilitan la escalabilidad del proyecto.
 
 ---
-
-## 🎮 Instalación
-
-1. Clona el repositorio:
-   ```bash
-   git clone [https://github.com/Ismx17/Metroid2D.git](https://github.com/Ismx17/Metroid2D.git)
