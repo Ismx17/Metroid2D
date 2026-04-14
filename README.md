@@ -1,4 +1,4 @@
-# 🕹️ Metroid 2D - Prototipo en Unity & C#
+# 🕹️ Pixel Metroid 2D - Prototipo en Unity & C#
 
 Este proyecto es un prototipo funcional de un videojuego de plataformas 2D inspirado en la estética y mecánicas de Metroid. Desarrollado como proyecto personal para profundizar en la lógica de videojuegos y el dominio del motor Unity.
 
